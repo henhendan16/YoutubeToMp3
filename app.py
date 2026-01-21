@@ -11,10 +11,12 @@ def convert():
     
     # Settings for yt-dlp to extract just the audio
     ydl_opts = {
-        'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         'format': 'bestaudio/best',
         'outtmpl': 'downloaded_audio.%(ext)s',
         'cookiefile': 'cookies.txt',  # <--- ADD THIS LINE
+
+        'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',

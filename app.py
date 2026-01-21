@@ -13,7 +13,7 @@ def convert():
     ydl_opts = {
         'format': 'bestaudio/best',
         'outtmpl': 'downloaded_audio.%(ext)s',
-        'ffmpeg_location': './',  # ADD THIS LINE
+        'cookiefile': 'cookies.txt',  # <--- ADD THIS LINE
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',

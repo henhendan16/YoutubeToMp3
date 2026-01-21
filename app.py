@@ -20,13 +20,18 @@ def convert():
         os.remove(final_file)
 
     ydl_opts = {
-        'format': 'bestaudio/best',
-        'outtmpl': output_filename,
+        'format': 'bestaudio[protocol!=m3u8]/bestaudio/best',
+        'outtmpl': f'{output_filename}.%(ext)s',
         'cookiefile': 'cookies.txt',
         'quiet': True,
         'no_warnings': True,
         # This is the "Magic" line to avoid the bot check
-        'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android'],
+                'skip': ['dash', 'hls']
+            }
+        },
         'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'ffmpeg_location': './', 
         'postprocessors': [{
@@ -39,6 +44,9 @@ def convert():
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([youtube_url])
+
+    if not os.path.exists(final_file) or os.path.getsize(final_file) == 0:
+        return {"error": "Conversion failed. Empty file."}, 500
         
         return send_file(final_file, as_attachment=True)
     except Exception as e:

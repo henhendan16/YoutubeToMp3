@@ -22,7 +22,11 @@ def convert():
     ydl_opts = {
         'format': 'bestaudio/best',
         'outtmpl': output_filename,
-        'cookiefile': 'cookies.txt',  # Ensure this file is in your GitHub
+        'cookiefile': 'cookies.txt',
+        'quiet': True,
+        'no_warnings': True,
+        # This is the "Magic" line to avoid the bot check
+        'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
         'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'ffmpeg_location': './', 
         'postprocessors': [{
